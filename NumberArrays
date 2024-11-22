@@ -1,0 +1,60 @@
+//LINQ BASED CODING ASSESSMENT-1 (18 JULY 2022)
+
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
+//INTEGER ARRAY
+Console.WriteLine("INTEGER ARRAY-");
+
+var numbers = new[] { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8 };
+//------------------------------------------------------------------------------------------------------------------------------------
+//1. find the unique element in this list (GROUPBY,WHERE,COUNT)
+var uniqueElement = numbers.GroupBy(number => number)
+    .Where(group => group.Count() == 1);
+foreach (var item in uniqueElement)
+{
+    Console.WriteLine("\n\n1. Unique element: " + item.Key);
+}//------------------------------------------------------------------------------------------------------------------------------------
+
+//2. find the distinct elements (DISTINCT)
+var distinctNumbers = numbers.Distinct();
+Console.Write("\n2. Distinct numbers: ");
+foreach (var i in distinctNumbers)
+{
+    Console.Write("{0}, ", i);
+}
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//3. find the maximum occurred element (GROUPBY, SELECT, ORDER BY DESCENDING, COUNT)
+var mostOccurred = numbers.GroupBy(number1 => number1)
+                          .Select(number1 => new { Number = number1.Key, Count = number1.Count() })
+                          .OrderByDescending(number1 => number1.Count).First();
+Console.WriteLine("\n\n3. Most occured Elements: " + mostOccurred);
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//4. find the minimum occurred element (GROUPBY, SELECT, ORDER BY, COUNT)
+var leastOccurred = numbers.GroupBy(number1 => number1)
+                          .Select(number1 => new { Number = number1.Key, Count = number1.Count() })
+                          .OrderBy(number1 => number1.Count).First();
+Console.WriteLine("\n4. Least occured Elements: " + leastOccurred);
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//5. find the even and odd numbers (WHERE)
+Console.WriteLine("\n5. Even And Odd Numbers: ");
+
+var allEven = numbers.Where(number => number % 2 == 0);
+Console.Write("   Even numbers: ");
+foreach (var item in allEven)
+{
+    Console.Write(item + ", ");
+}
+
+var allOdd = numbers.Where(number => number % 2 != 0);
+Console.Write("\n   Odd numbers: ");
+foreach (var item in allOdd)
+{
+    Console.Write(item + ", ");
+}
+Console.WriteLine();
+//------------------------------------------------------------------------------------------------------------------------------------
+Console.WriteLine("Thank You!");
